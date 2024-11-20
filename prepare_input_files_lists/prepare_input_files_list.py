@@ -62,7 +62,7 @@ def __prepare_input_files_list(
         all_files,
     ):
 
-    input_files_list = f"{input_directory}/files_list/{year}/{dataset}.csv"
+    input_files_list = f"{input_directory}/files_list/{year}/{dataset}.csv" #f"{input_directory}/{dataset}.csv" 
     if not os.path.exists(input_files_list):
         log.critical(f"Input files list {input_files_list} does not exist!")
         exit(1)
