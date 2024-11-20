@@ -3,8 +3,8 @@
 dataset_directory=/pnfs/psi.ch/cms/trivcat/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw
 dataset_config=dataset_configs.analysis_selection_Hbb_datasets_paths
 
-module=analysis_configs.analysis_selection_Hbb_datasets_paths
-selection_name=analysis_selection_Hbb_datasets_paths
+module=analysis_configs.0_leptons_selection_Hbb_boosted
+selection_name=0_leptons_selection_Hbb_boosted
 
 #module=analysis_configs.t_channel_wnae_qcd_training_region
 #selection_name=t_channel_wnae_qcd_training_region
@@ -36,14 +36,14 @@ dataset_names=(
     #
     # Zjets
     #
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
-    Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400
-    Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
-    Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
-    Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400
 )
 
 prepare_input_files_list() {

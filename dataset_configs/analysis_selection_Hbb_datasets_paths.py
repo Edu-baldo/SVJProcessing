@@ -38,14 +38,14 @@ wjets_bins = [
 ]
 
 zjets_bins = [
-    "Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250",  
-    "Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150",   
-    "Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf",
-    "Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400",
-    "Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250",
-    "Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150",
-    "Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf",
-    "Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400",
+    #"Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250",  
+    #"Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150",   
+    #"Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf",
+    #"Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400",
+    #"Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250",
+    #"Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150",
+    #"Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf",
+    #"Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400",
 ]
 
 
