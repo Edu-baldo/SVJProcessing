@@ -1,7 +1,7 @@
 import numpy as np 
 
 def is_good_ak8_jet(jets_ak8):
-    return jets_ak8.ID == 6
+    return jets_ak8.id == 6
 
 
 def is_analysis_ak8_jet(jets_ak8):
@@ -12,7 +12,7 @@ def is_analysis_ak8_jet(jets_ak8):
 
 
 def is_good_ak4_jet(jets):
-    return jets.ID == 1
+    return jets.id == 6
 
 
 def is_analysis_ak4_jet(jets):
@@ -25,14 +25,14 @@ def is_analysis_ak4_jet(jets):
 def is_analysis_electron(electrons):
     return (
         (electrons.pt > 15)
-        & (abs(electrons.eta) < 2.5)
+        & (abs(electrons.eta) < 2.5) #missing electron id cut, look requirement on cut based id 
     )
 
 
 def is_analysis_muon(muons):
     return (
         (muons.pt > 15)
-        & (abs(muons.eta) < 2.5)   #id for veto (no leptons) category
+        & (abs(muons.eta) < 2.5)   #id for veto (no leptons) category, missing id requirement, look for medium id
     )
 
 
@@ -86,4 +86,5 @@ def is_cleaning_muon(muons):
         is_tag_muon(muons)
         & __is_isolated_muon(muons)
     )
+
 

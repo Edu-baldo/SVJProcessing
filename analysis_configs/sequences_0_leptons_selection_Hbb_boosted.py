@@ -30,6 +30,24 @@ def apply_good_ak8_jet_filter(events):
     return events
 
 
+def apply_good_ak4_jet_filter(events):
+    ak4_jets = ak.zip(
+        {
+            "pt": events.Jet_pt,
+            "mass": events.Jet_mass,
+            "eta": events.Jet_eta,
+            "phi": events.Jet_phi,
+            "id": events.Jet_jetId,
+        },
+        with_name="PtEtaPhiMLorentzVector",
+    )
+    analysis_jets = ak4_jets[obj.is_analysis_ak4_jet(ak4_jets)]
+    good_ak4_jets_filter = ak.all(obj.is_good_ak4_jet(analysis_jets), axis=1)
+
+    events = events[good_ak4_jets_filter]
+    return events
+
+
 def add_good_ak8_jet_branch(events):
     ak8_jets = ak.zip(
         {
@@ -52,7 +70,27 @@ def add_good_ak8_jet_branch(events):
 
     return events
 
+def add_good_ak4_jet_branch(events):
+    ak4_jets = ak.zip(
+        {
+            "pt": events.Jet_pt,
+            "mass": events.Jet_mass,
+            "eta": events.Jet_eta,
+            "phi": events.Jet_phi,
+            "id": events.Jet_jetId,
+        },
+        with_name="PtEtaPhiMLorentzVector",
+    )
+    
+    is_good_analysis_ak4_jet = (
+        obj.is_analysis_ak4_jet(ak4_jets)
+        & obj.is_good_ak4_jet(ak4_jets)
+    )
 
+    #add new branch to the events
+    events["Jet_isGood"] = is_good_analysis_ak4_jet
+
+    return events
 
 def add_analysis_branches(events):
 
@@ -93,13 +131,16 @@ def apply_good_electrons_filter(events):
             "eta": events.Electron_eta,
             "phi": events.Electron_phi,
             "mass": events.Electron_mass,
-            "pfRelIso": events.Electron_pfRelIso,
-            "mediumID": events.Electron_mediumID,
+            "pfRelIso": events.Electron_pfRelIso03_all,
+            "mediumID": events.Electron_cutBased,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
-    good_electrons_filter = obj.is_veto_electron(electrons)
+    
+    analysis_electrons = electrons[obj.is_analysis_electron(electrons)]
+    good_electrons_filter = ak.all(obj.is_veto_electron(analysis_electrons), axis=1)
     events = events[good_electrons_filter]
+
     return events 
 
 def apply_good_muons_filter(events):
@@ -109,13 +150,16 @@ def apply_good_muons_filter(events):
             "eta": events.Muon_eta,
             "phi": events.Muon_phi,
             "mass": events.Muon_mass,
-            "pfRelIso": events.Muon_pfRelIso,
-            "mediumID": events.Muon_mediumID,
+            "pfRelIso": events.Muon_pfRelIso03_all,
+            "mediumID": events.Muon_mediumId,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
-    good_muons_filter = obj.is_veto_muon(muons)
+
+    analysis_muons = muons[obj.is_analysis_muon(muons)]
+    good_muons_filter = ak.all(obj.is_veto_electron(analysis_muons), axis=1)
     events = events[good_muons_filter]
+
     return events
 
 def add_good_electrons_branch(events):
@@ -125,8 +169,8 @@ def add_good_electrons_branch(events):
             "eta": events.Electron_eta,
             "phi": events.Electron_phi,
             "mass": events.Electron_mass,
-            "pfRelIso": events.Electron_pfRelIso,
-            "mediumID": events.Electron_mediumID,
+            "pfRelIso": events.Electron_pfRelIso03_all,
+            "mediumID": events.Electron_cutBased,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -148,8 +192,8 @@ def add_good_muons_branch(events):
             "eta": events.Muon_eta,
             "phi": events.Muon_phi,
             "mass": events.Muon_mass,
-            "pfRelIso": events.Muon_pfRelIso,
-            "mediumID": events.Muon_mediumID,
+            "pfRelIso": events.Muon_pfRelIso03_all,
+            "mediumID": events.Muon_mediumId,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -168,3 +212,4 @@ def remove_collections(events):
     events = events[[x for x in events.fields if x != "JetsAK15"]]
     events = events[[x for x in events.fields if x != "GenJetsAK15"]]
     return events
+
