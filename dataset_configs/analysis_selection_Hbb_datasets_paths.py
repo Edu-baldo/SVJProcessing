@@ -17,7 +17,7 @@
 #               The regex must be "" if no regex is applied.
 #
 ################################################################################
-
+#import pprint
 
 year = "2017"
 
@@ -31,10 +31,10 @@ signal_ggZH = [
 
 
 wjets_bins = [
-    "WJetsToLNu_Pt-100To250",
-    "WJetsToLNu_Pt-250To400", 
-    "WJetsToLNu_Pt-400To600",
-    "WJetsToLNu_Pt-600ToInf",
+    #"WJetsToLNu_Pt-100To250",
+    #"WJetsToLNu_Pt-250To400", 
+    #"WJetsToLNu_Pt-400To600",
+    #"WJetsToLNu_Pt-600ToInf",
 ]
 
 zjets_bins = [
@@ -57,7 +57,7 @@ datasets_info[year].update({
         {
             "redirector": "root://t3se01.psi.ch:1094//",
             "path": f"/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/hbb/{signal}/",
-            "regex": f"PFNanoAOD_{signal}",
+            "regex": f"PFNANOAOD_{signal}_part-[1-2].root",
         },
     ]
     for signal in signal_ggZH
@@ -73,18 +73,18 @@ for bin in background_bins:
                 {
                     "redirector": "root://t3se01.psi.ch:1094//",
                     "path": f"/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/wjets/{bin}/",
-                    "regex": f"PFNanoAOD_{bin}",
+                    "regex": f"PFNANOAOD_{bin}",
                 }
             ]
         })
 
-    elif "ZJetsToNuNu" in bin:
+    elif "JetsToNuNu" in bin:
         datasets_info[year].update({
             bin: [
                 {
                     "redirector": "root://t3se01.psi.ch:1094//",
                     "path": f"/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/zjets/{bin}/",
-                    "regex": f"PFNanoAOD_{bin}",
+                    "regex": f"PFNANOAOD_{bin}",
                 }
             ]
         })
@@ -92,4 +92,5 @@ for bin in background_bins:
         print(f"Unknown background {bin}")
         exit(1)
 
-      
+
+        
