@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dataset_directory=/work/ext-ebaldo/datasets_hbb
+dataset_directory=/work/ext-ebaldo/datasets_hbb/
 dataset_config=dataset_configs.analysis_selection_Hbb_datasets_paths
 
 module=analysis_configs.0_leptons_selection_Hbb_boosted
@@ -59,8 +59,8 @@ prepare_input_files_list() {
     echo ""
     echo "Preparing input files for dataset ${dataset_name} year ${year} and selection ${selection_name}"
 
-    #python list_dataset_files.py -d ${dataset_name} -y ${year} -c ${dataset_config} -o ${dataset_directory} -nano
-    python compute_unweighted_selection_efficiency.py -d ${dataset_name} -y ${year} -p ${module} -s ${selection_name} -i ${dataset_directory} -o ${dataset_directory} -n 6 -e futures -c 10000 -nano
+    python list_dataset_files.py -d ${dataset_name} -y ${year} -c ${dataset_config} -o ${dataset_directory} -nano
+    #python compute_unweighted_selection_efficiency.py -d ${dataset_name} -y ${year} -p ${module} -s ${selection_name} -i ${dataset_directory} -o ${dataset_directory} -n 6 -e futures -c 10000 -nano
     #python prepare_input_files_list.py -d ${dataset_name} -y ${year} -s ${selection_name} -i ${dataset_directory} -o ${dataset_directory} -m 50000
 }
 
@@ -68,5 +68,5 @@ for dataset_name in ${dataset_names[@]}; do
 
     prepare_input_files_list ${dataset_config} ${dataset_directory} ${module} ${selection_name} ${year} ${dataset_name}
 
-done 
+done
 

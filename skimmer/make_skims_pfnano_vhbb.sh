@@ -13,7 +13,7 @@ FORCE_RECREATE=0   # 1 to recreate output file if it exists, 0 else
 FIRST_FILE=0
 LAST_FILE=-1  # Use -1 to skim all input files
 
-dataset_directory=/work/cazzanig/datasets_hbb/
+dataset_directory=/work/ext-ebaldo/datasets_hbb/
 
 module=analysis_configs.0_leptons_selection_Hbb_boosted
 selection_name=0_leptons_selection_Hbb_boosted
@@ -25,7 +25,7 @@ years=(
     #2018
 )
 
-output_directory=root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/cazzanig/vh_bb_test_skims/
+output_directory=root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_test_skims/
 
 
 dataset_names=(

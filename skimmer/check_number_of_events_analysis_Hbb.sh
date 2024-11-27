@@ -2,7 +2,7 @@
 
 N_WORKERS=6
 
-dataset_directory=/pnfs/psi.ch/cms/trivcat/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw
+dataset_directory=/work/ext-ebaldo/datasets_hbb
 
 selection_name=analysis_selection_Hbb_datasets_paths
 #selection_name=t_channel_wnae_qcd_training_region
