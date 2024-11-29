@@ -25,7 +25,7 @@ years=(
     #2018
 )
 
-output_directory=root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_test_skims/
+output_directory=/work/ext-ebaldo/output_selection/
 
 
 dataset_names=(

@@ -12,36 +12,35 @@ selection_name=analysis_selection_Hbb_datasets_paths
 year=2017
 
 # Output directory for nominal samples - no variation of the uncertainties
-output_directory=/work/ext-ebaldo/Hbb_analysis/output_selection_Hbb
-
+output_directory=/work/ext-ebaldo/output_selection/
 
 dataset_names=(
     #
     # Signals
-    #
+    # 
     ggZH_HToBB_ZToLL
-    ggZH_HToBB_ZToNuNu
+    #ggZH_HToBB_ZToNuNu
     #
     # Backgrounds
     #
     #
     # Wjets
     #
-    WJetsToLNu_Pt-100To250
-    WJetsToLNu_Pt-250To400 
-    WJetsToLNu_Pt-400To600
-    WJetsToLNu_Pt-600ToInf
+    #WJetsToLNu_Pt-100To250
+    #WJetsToLNu_Pt-250To400 
+    #WJetsToLNu_Pt-400To600
+    #WJetsToLNu_Pt-600ToInf
     #
     # Zjets
     #
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
-    Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400
-    Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
-    Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
-    Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250
+    #1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400
 )
 
 
