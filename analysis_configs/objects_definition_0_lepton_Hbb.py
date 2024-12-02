@@ -25,16 +25,14 @@ def is_analysis_ak4_jet(jets):
 def is_analysis_electron(electrons):
     return (
         (electrons.pt > 15)
-        & (abs(electrons.eta) < 2.5) #missing electron id cut, look requirement on cut based id
-        #& (electrons.cutBasedID >= 2) 
+        & (abs(electrons.eta) < 2.5)
     )
 
 
 def is_analysis_muon(muons):
     return (
         (muons.pt > 15)
-        & (abs(muons.eta) < 2.5)   #id for veto (no leptons) category, missing id requirement, look for medium id
-        #& (muons.mediumID == 1)
+        & (abs(muons.eta) < 2.5)   #id for veto (no leptons) category
     )
 
 
@@ -88,5 +86,4 @@ def is_cleaning_muon(muons):
         is_tag_muon(muons)
         & __is_isolated_muon(muons)
     )
-
 

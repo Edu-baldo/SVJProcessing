@@ -17,7 +17,7 @@
 #               The regex must be "" if no regex is applied.
 #
 ################################################################################
-
+#import pprint
 
 year = "2017"
 
@@ -31,10 +31,10 @@ signal_ggZH = [
 
 
 wjets_bins = [
-    "WJetsToLNu_Pt-100To250",
-    "WJetsToLNu_Pt-250To400", 
-    "WJetsToLNu_Pt-400To600",
-    "WJetsToLNu_Pt-600ToInf",
+    #"WJetsToLNu_Pt-100To250",
+    #"WJetsToLNu_Pt-250To400", 
+    #"WJetsToLNu_Pt-400To600",
+    #"WJetsToLNu_Pt-600ToInf",
 ]
 
 zjets_bins = [
@@ -73,7 +73,7 @@ for bin in background_bins:
                 {
                     "redirector": "root://t3se01.psi.ch:1094//",
                     "path": f"/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/wjets/{bin}/",
-                    "regex": f"PFNanoAOD_{bin}",
+                    "regex": f"PFNANOAOD_{bin}",
                 }
             ]
         })
@@ -84,7 +84,7 @@ for bin in background_bins:
                 {
                     "redirector": "root://t3se01.psi.ch:1094//",
                     "path": f"/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/zjets/{bin}/",
-                    "regex": f"PFNanoAOD_{bin}",
+                    "regex": f"PFNANOAOD_{bin}",
                 }
             ]
         })
