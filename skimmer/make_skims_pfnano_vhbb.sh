@@ -7,8 +7,8 @@ CORES=2
 CHUNK_SIZE=1000
 N_WORKERS=150
 #EXECUTOR=dask/lpccondor    # HTCondor at LPC
-#EXECUTOR=dask/slurm         # slurm at PSI
-EXECUTOR=futures        # run interactively
+EXECUTOR=dask/slurm         # slurm at PSI
+#EXECUTOR=futures        # run interactively
 FORCE_RECREATE=0   # 1 to recreate output file if it exists, 0 else
 FIRST_FILE=0
 LAST_FILE=-1  # Use -1 to skim all input files
@@ -25,15 +25,36 @@ years=(
     #2018
 )
 
-output_directory=/work/ext-ebaldo/output_selection/
-
+output_directory=/pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_test_skims/
+#root://t3dcachedb03.psi.ch/
 
 dataset_names=(
     #
     # Signals
     #
-    ggZH_HToBB_ZToNuNu
+    #ggZH_HToBB_ZToLL
+    #ggZH_HToBB_ZToNuNu
     #
+    # Backgrounds
+    #
+    #
+    # Wjets
+    #
+    #WJetsToLNu_Pt-100To250
+    #WJetsToLNu_Pt-250To400 
+    #WJetsToLNu_Pt-400To600
+    #WJetsToLNu_Pt-600ToInf
+    #
+    # Zjets
+    #
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250
+    Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
+    #Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400
 )
 
 variations=(
@@ -50,7 +71,29 @@ cross_sections=(
     #
     # Signals
     #
-    0.0122
+    #0.0062
+    #0.0122
+    #
+    # Backgrounds
+    #
+    #
+    # Wjets
+    #
+    #763.7
+    #27.55
+    #3.48
+    #0.5415
+    #
+    # Zjets
+    #
+    #17.15
+    583.4   
+    #0.8318
+    #1.972
+    #29.28
+    #308.2
+    #0.216
+    #4.96
 )
 
 
@@ -92,7 +135,7 @@ make_skims() {
                 local input_files=${files_list_directory}/${files_list}
                 local output_file=${output_directory}/${files_list/.txt/.root}
                 local output_file_name_tmp=$(echo ${ouput_file}_$(date +"%Y%m%d-%H%M%S") | shasum | cut -d " " -f1).root
-                local output_file_tmp=/work/${USER}/tmp/${output_file_name_tmp} 
+                local output_file_tmp=/scratch/${USER}/tmp/${output_file_name_tmp}
 
                 echo ""
                 echo "Making skim file ${output_file}"
@@ -114,7 +157,7 @@ make_skims() {
                     else
                         weight_variation_flag=""
                     fi
-                    python skim.py -i ${input_files} -o ${output_file_tmp} -p ${module} -pd ${dataset_name} -y ${year} -e ${EXECUTOR} -n ${N_WORKERS} -c ${CHUNK_SIZE} --memory ${MEMORY} --cores ${CORES} -pn_tagger ${variation_flag} ${weight_variation_flag} -xsec ${xsec} -nano -mc 
+                    python skim.py -i ${input_files} -o ${output_file_tmp} -p ${module} -pd ${dataset_name} -y ${year} -e ${EXECUTOR} -n ${N_WORKERS} -c ${CHUNK_SIZE} --memory ${MEMORY} --cores ${CORES} --walltime ${TIME} --queue ${PARTITION} -pn_tagger ${variation_flag} ${weight_variation_flag} -xsec ${xsec} -nano 
                     xrdcp -f ${output_file_tmp} ${output_file}
                     echo ${output_file} has been saved.
                     rm ${output_file_tmp}

@@ -61,7 +61,7 @@ def __list_files(dataset_info, nano_aod):
     for info_dict in dataset_info:
         files_list_ = get_files_list(
             path=info_dict["path"],
-            redirector=info_dict["redirector"],
+            #redirector=info_dict["redirector"],
             regex=info_dict["regex"],
         )
 

@@ -77,7 +77,9 @@ def main():
         path=output_path,
         redirector=output_redirector,
     )
-    output_files = sorted(output_files, key=lambda x: int(x.split("/")[-1].split("-")[-1].split(".")[0]))
+    #output_files = sorted(output_files, key=lambda x: int(x.split("/")[-1].split("-")[-1].split(".")[0]))
+    output_files = sorted(output_files, key=lambda x: int(x.split("/")[-1].split("-")[-1].split(".")[0]) if x.split("/")[-1].split("-")[-1].split(".")[0].isdigit() else float('inf'))
+
 
     log.info(f"Input files list: {args.input_files_list}")
     log.info("Found the following output files:")

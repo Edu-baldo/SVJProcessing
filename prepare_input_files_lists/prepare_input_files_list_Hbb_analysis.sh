@@ -18,11 +18,11 @@ selection_name=0_leptons_selection_Hbb_boosted
 year=2017
 
 dataset_names=(
-    #
+    # 
     # Signals
     #
     #ggZH_HToBB_ZToLL
-    ggZH_HToBB_ZToNuNu
+    #ggZH_HToBB_ZToNuNu
     #
     # Backgrounds
     #
@@ -43,7 +43,7 @@ dataset_names=(
     #Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
     #Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150
     #Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
-    #Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400
+    Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400
 )
 
 prepare_input_files_list() {
@@ -59,9 +59,9 @@ prepare_input_files_list() {
     echo ""
     echo "Preparing input files for dataset ${dataset_name} year ${year} and selection ${selection_name}"
 
-    #python list_dataset_files.py -d ${dataset_name} -y ${year} -c ${dataset_config} -o ${dataset_directory} -nano
+    python list_dataset_files.py -d ${dataset_name} -y ${year} -c ${dataset_config} -o ${dataset_directory} -nano
     python compute_unweighted_selection_efficiency.py -d ${dataset_name} -y ${year} -p ${module} -s ${selection_name} -i ${dataset_directory} -o ${dataset_directory} -n 6 -e futures -c 10000 -nano
-    #python prepare_input_files_list.py -d ${dataset_name} -y ${year} -s ${selection_name} -i ${dataset_directory} -o ${dataset_directory} -m 50000
+    python prepare_input_files_list.py -d ${dataset_name} -y ${year} -s ${selection_name} -i ${dataset_directory} -o ${dataset_directory} -m 50000
 }
 
 for dataset_name in ${dataset_names[@]}; do

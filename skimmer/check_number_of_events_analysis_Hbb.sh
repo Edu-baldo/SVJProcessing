@@ -2,9 +2,9 @@
 
 N_WORKERS=6
 
-dataset_directory=/work/ext-ebaldo/datasets_hbb
+dataset_directory=/work/ext-ebaldo/datasets_hbb/
 
-selection_name=analysis_selection_Hbb_datasets_paths
+selection_name=0_leptons_selection_Hbb_boosted
 #selection_name=t_channel_wnae_qcd_training_region
 #selection_name=t_channel_wnae_top_training_region
 #selection_name=t_channel_lost_lepton_control_region

@@ -31,21 +31,21 @@ signal_ggZH = [
 
 
 wjets_bins = [
-    #"WJetsToLNu_Pt-100To250",
-    #"WJetsToLNu_Pt-250To400", 
-    #"WJetsToLNu_Pt-400To600",
-    #"WJetsToLNu_Pt-600ToInf",
+    "WJetsToLNu_Pt-100To250",
+    "WJetsToLNu_Pt-250To400", 
+    "WJetsToLNu_Pt-400To600",
+    "WJetsToLNu_Pt-600ToInf",
 ]
 
 zjets_bins = [
-    #"Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250",  
-    #"Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150",   
-    #"Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf",
-    #"Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400",
-    #"Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250",
-    #"Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150",
-    #"Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf",
-    #"Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400",
+    "Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250",  
+    "Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150",   
+    "Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf",
+    "Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400",
+    "Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250",
+    "Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150",
+    "Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf",
+    "Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400",
 ]
 
 
@@ -55,9 +55,9 @@ background_bins = wjets_bins + zjets_bins
 datasets_info[year].update({
     signal: [
         {
-            "redirector": "root://t3se01.psi.ch:1094//",
-            "path": f"/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/hbb/{signal}/",
-            "regex": f"PFNANOAOD_{signal}_part-[1-2].root",
+            #"redirector": "",      #"root://t3se01.psi.ch:1094//",
+            "path": f"/pnfs/psi.ch/cms/trivcat/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/hbb/{signal}/",
+            "regex": f"PFNANOAOD_{signal}_part",
         },
     ]
     for signal in signal_ggZH
@@ -71,9 +71,9 @@ for bin in background_bins:
         datasets_info[year].update({
             bin: [
                 {
-                    "redirector": "root://t3se01.psi.ch:1094//",
-                    "path": f"/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/wjets/{bin}/",
-                    "regex": f"PFNANOAOD_{bin}",
+                    #"redirector": "",     #"root://t3se01.psi.ch:1094//",
+                    "path": f"/pnfs/psi.ch/cms/trivcat/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/wjets/{bin}/",
+                    "regex": f"PFNANOAOD_{bin}_part",
                 }
             ]
         })
@@ -82,9 +82,9 @@ for bin in background_bins:
         datasets_info[year].update({
             bin: [
                 {
-                    "redirector": "root://t3se01.psi.ch:1094//",
-                    "path": f"/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/zjets/{bin}/",
-                    "regex": f"PFNANOAOD_{bin}",
+                    #"redirector": "",     #"root://t3se01.psi.ch:1094//",
+                    "path": f"/pnfs/psi.ch/cms/trivcat/store/t3groups/ethz-susy/PFNanoVHbb/UL2017/cmssw/zjets/{bin}/",
+                    "regex": f"PFNANOAOD_{bin}_part",
                 }
             ]
         })
