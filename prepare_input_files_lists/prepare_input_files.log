@@ -1,0 +1,49 @@
+
+Preparing input files for dataset ggZH_HToBB_ZToLL year 2017 and selection 0_leptons_selection_Hbb_boosted
+[36;20m[INFO] Processing batch 1/1...[0m
+datasets:  ['ggZH_HToBB_ZToLL']
+  0%|          | 0/111 [00:00<?, ?it/s]  1%|          | 1/111 [00:02<05:23,  2.94s/it]  8%|▊         | 9/111 [00:03<00:26,  3.89it/s] 11%|█         | 12/111 [00:04<00:26,  3.67it/s] 13%|█▎        | 14/111 [00:04<00:28,  3.41it/s] 14%|█▍        | 16/111 [00:04<00:21,  4.32it/s] 16%|█▌        | 18/111 [00:05<00:22,  4.22it/s] 18%|█▊        | 20/111 [00:06<00:30,  3.02it/s] 23%|██▎       | 25/111 [00:07<00:19,  4.35it/s] 23%|██▎       | 26/111 [00:08<00:30,  2.83it/s] 29%|██▉       | 32/111 [00:09<00:23,  3.42it/s] 30%|██▉       | 33/111 [00:10<00:26,  2.91it/s] 34%|███▍      | 38/111 [00:10<00:16,  4.30it/s] 35%|███▌      | 39/111 [00:11<00:18,  3.83it/s] 38%|███▊      | 42/111 [00:12<00:17,  3.98it/s] 40%|███▉      | 44/111 [00:12<00:14,  4.67it/s] 41%|████      | 45/111 [00:12<00:15,  4.28it/s] 41%|████▏     | 46/111 [00:13<00:16,  4.03it/s] 42%|████▏     | 47/111 [00:13<00:14,  4.56it/s] 43%|████▎     | 48/111 [00:13<00:13,  4.66it/s] 45%|████▌     | 50/111 [00:13<00:10,  5.58it/s] 46%|████▌     | 51/111 [00:13<00:13,  4.40it/s] 47%|████▋     | 52/111 [00:14<00:18,  3.16it/s] 49%|████▊     | 54/111 [00:14<00:12,  4.61it/s] 50%|████▉     | 55/111 [00:15<00:13,  4.13it/s] 52%|█████▏    | 58/111 [00:15<00:11,  4.69it/s] 53%|█████▎    | 59/111 [00:15<00:12,  4.22it/s] 54%|█████▍    | 60/111 [00:16<00:12,  4.05it/s] 55%|█████▍    | 61/111 [00:17<00:19,  2.63it/s] 59%|█████▉    | 66/111 [00:17<00:08,  5.13it/s] 60%|██████    | 67/111 [00:18<00:11,  3.69it/s] 61%|██████▏   | 68/111 [00:18<00:12,  3.40it/s] 63%|██████▎   | 70/111 [00:18<00:08,  4.61it/s] 65%|██████▍   | 72/111 [00:18<00:06,  5.59it/s] 66%|██████▌   | 73/111 [00:19<00:09,  3.88it/s] 67%|██████▋   | 74/111 [00:19<00:09,  4.07it/s] 68%|██████▊   | 75/111 [00:19<00:08,  4.32it/s] 70%|███████   | 78/111 [00:20<00:06,  4.98it/s] 71%|███████   | 79/111 [00:21<00:10,  3.13it/s] 73%|███████▎  | 81/111 [00:21<00:08,  3.75it/s] 76%|███████▌  | 84/111 [00:21<00:05,  5.12it/s] 77%|███████▋  | 85/111 [00:22<00:06,  3.83it/s] 78%|███████▊  | 87/111 [00:22<00:04,  5.13it/s] 79%|███████▉  | 88/111 [00:22<00:04,  4.80it/s] 81%|████████  | 90/111 [00:23<00:04,  4.91it/s] 82%|████████▏ | 91/111 [00:23<00:05,  3.85it/s] 83%|████████▎ | 92/111 [00:23<00:04,  4.35it/s] 85%|████████▍ | 94/111 [00:24<00:03,  5.18it/s] 86%|████████▋ | 96/111 [00:24<00:02,  5.01it/s] 87%|████████▋ | 97/111 [00:24<00:03,  4.26it/s] 88%|████████▊ | 98/111 [00:25<00:04,  3.21it/s] 92%|█████████▏| 102/111 [00:25<00:01,  5.80it/s] 93%|█████████▎| 103/111 [00:26<00:01,  4.36it/s] 94%|█████████▎| 104/111 [00:26<00:01,  4.51it/s] 95%|█████████▍| 105/111 [00:26<00:01,  3.73it/s] 95%|█████████▌| 106/111 [00:27<00:01,  3.71it/s] 98%|█████████▊| 109/111 [00:27<00:00,  4.61it/s]100%|██████████| 111/111 [00:28<00:00,  4.49it/s]100%|██████████| 111/111 [00:28<00:00,  3.95it/s]
+[36;20m[INFO] /work/ext-ebaldo/datasets_hbb//files_list/2017/ggZH_HToBB_ZToLL.csv was written.[0m
+[36;20m[INFO] Computing (unweighted) efficiency for 1 file(s)...[0m
+  Preprocessing 100% ━━━━━━━━━━━━━━━━━━━━ 1/1 [ 0:00:01 < 0:00:00 | ?   file/s ]
+Merging (local) 100% ━━━━━━━━━━━━━━━━━━━━ 1/1 [ 0:00:01 < 0:00:00 | ? merges/s ]
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+     Processing 100% ━━━━━━━━━━━━━━━━━━ 8/8 [ 0:00:41 < 0:00:00 | 0.3  chunk/s ]
+Merging (local) 100% ━━━━━━━━━━━━━━━━━━ 8/8 [ 0:00:42 < 0:00:00 | ?   merges/s ]
+zMuons: [[], [], [], [], [], [], [], [], [], [], ... [], [], [], [], [], [], [], [], [], []]
+zMuons: [[], [], [], [], [], [], ... charge: -1, dxy: -4.09e-05, dz: 0.000426}], [], []]
+zMuons: [[], [], [], [], [], [], [], [], [], [], ... [], [], [], [], [], [], [], [], [], []]
+zMuons: [[{pt: 20, eta: 0.119, phi: 2.66, mass: 0.106, ... dz: 0.0237}], []]
+zMuons: [[], [], [], [], [{pt: 520, eta: 1.34, phi: 3.13, ... [], [], [], [], []]
+zMuons: [[], [], [], [], [], [], [], [], [], ... dz: -0.0311}], [], [], [], [], [], [], []]
+zMuons: [[], [], [], [], [], [], [], [], [], ... dz: 0.0101}], [], [], [], [], [], [], []]
+zMuons: [[], [], [{pt: 34, eta: -0.313, phi: 1.37, mass: 0.106, ... [], [], [], [], []]
+[36;20m[INFO] Efficiency: 0.00035714285714285714[0m
+[36;20m[INFO] Relative uncertainty: 18.25%[0m
+[36;20m[INFO] Will increase number of files to reach target precision of 5%[0m
+[36;20m[INFO] Computing (unweighted) efficiency for 25 file(s)...[0m
+  Preprocessing 100% ━━━━━━━━━━━━━━━━ 24/24 [ 0:00:04 < 0:00:00 | 6.8   file/s ]
+Merging (local) 100% ━━━━━━━━━━━━━━━━ 24/24 [ 0:00:04 < 0:00:00 | ?   merges/s ]
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)
+/work/fleble/miniforge3/envs/svj14/lib/python3.11/site-packages/awkward/highlevel.py:991: DeprecationWarning: In future, it will be an error for 'np.bool_' scalars to be interpreted as an index
+  tmp = ak._util.wrap(self.layout[where], self._behavior)

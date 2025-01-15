@@ -6,6 +6,7 @@ from utils.variables_computation import event_variables as event_vars
 from utils.data.triggers import primary_dataset_triggers
 from utils.tree_maker.triggers import trigger_table
 from analysis_configs import objects_definition_0_lepton_Hbb as obj
+from utils import Decay_Vtype 
 
 from utils.Logger import *
 
@@ -132,7 +133,7 @@ def apply_good_electrons_filter(events):
             "phi": events.Electron_phi,
             "mass": events.Electron_mass,
             "pfRelIso": events.Electron_pfRelIso03_all,
-            "mediumID": events.Electron_cutBased,
+            "id": events.Electron_cutBased,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -151,13 +152,13 @@ def apply_good_muons_filter(events):
             "phi": events.Muon_phi,
             "mass": events.Muon_mass,
             "pfRelIso": events.Muon_pfRelIso03_all,
-            "mediumID": events.Muon_mediumId,
+            "id": events.Muon_mediumId,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
 
     analysis_muons = muons[obj.is_analysis_muon(muons)]
-    good_muons_filter = ak.all(obj.is_veto_electron(analysis_muons), axis=1)
+    good_muons_filter = ak.all(obj.is_veto_muon(analysis_muons), axis=1)
     events = events[good_muons_filter]
 
     return events
@@ -170,7 +171,7 @@ def add_good_electrons_branch(events):
             "phi": events.Electron_phi,
             "mass": events.Electron_mass,
             "pfRelIso": events.Electron_pfRelIso03_all,
-            "mediumID": events.Electron_cutBased,
+            "id": events.Electron_cutBased,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -193,7 +194,7 @@ def add_good_muons_branch(events):
             "phi": events.Muon_phi,
             "mass": events.Muon_mass,
             "pfRelIso": events.Muon_pfRelIso03_all,
-            "mediumID": events.Muon_mediumId,
+            "id": events.Muon_mediumId,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -213,3 +214,24 @@ def remove_collections(events):
     events = events[[x for x in events.fields if x != "GenJetsAK15"]]
     return events
 
+def filter_isZnn(events):
+
+    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=4)
+    events = events[filtered_events]
+
+    return events
+
+def calculate_mht_pt(events):
+
+    # Scalar sum of pt of all jets
+    jet_pt_sum = ak.sum(events.Jet_pt[events.Jet_isGood], axis=1)
+    
+    # Scalar sum of pt of all leptons (muons + electrons)
+    lepton_pt_sum = (
+        ak.sum(events.Muon_pt[events.Muon_isGood], axis=1) +
+        ak.sum(events.Electron_pt[events.Electron_isGood], axis=1)
+    )
+    
+    # Total MHT_pt
+    mht_pt = jet_pt_sum + lepton_pt_sum
+    return mht_pt

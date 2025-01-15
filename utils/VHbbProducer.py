@@ -162,23 +162,23 @@ class VHbbProducer(Module):
         pass
 
     def matchSoftActivity(self,jets,saJets,dR=0.4) :
-	matched=set()
-	for saj in saJets:
-	    for j in jets :
-	        if deltaR(saj,j) < dR :
-                    matched.add(saj)
-	return matched
+        matched=set()
+        for saj in saJets:
+            for j in jets :
+                if deltaR(saj,j) < dR :
+                    matched.add(saj)            
+        return matched
     
     def matchSoftActivityFSR(self,jet1,jet2,saJets,dR=0.4) :
-	matched=set()
+        matched=set()
         drjj = deltaR(jet1,jet2)
         sumDeltaRMin = drjj + 2*dR
-	for saj in saJets:
+        for saj in saJets:
             dr1 = deltaR(saj,jet1)
             dr2 = deltaR(saj,jet2)
             if ((dr1+dr2) < sumDeltaRMin):
                 matched.add(saj)
-	return matched
+        return matched
 			
     def pt(self, jet, isMC, noReg=False, sysVar=0):
         ## the MC has JER smearing applied which has output branch Jet_pt_nom which should be compared 
@@ -233,7 +233,7 @@ class VHbbProducer(Module):
     def btag(self, jet):
         if (self.useCMVA):
             return jet.btagCMVA
-	else:
+        else:
             return jet.btagDeepB
 
     def cvsltag(self, jet):
