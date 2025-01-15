@@ -216,14 +216,14 @@ def remove_collections(events):
 
 def filter_isWmunu(events):
     
-    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=4)
+    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=2)
     events = events[filtered_events]
 
     return events
 
 def filter_isWenu(events):
      
-    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=4)
+    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=3)
     events = events[filtered_events]
 
     return events

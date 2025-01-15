@@ -37,9 +37,6 @@ def calculate_vtype(events, vtype_filter, elid_func=None):
         with_name="PtEtaPhiMLorentzVector",
     )
 
-    # Initialize Vtype as -1
-    Vtype = ak.full_like(events.MET_pt, -1, dtype=int)
- 
     zElectrons = electrons[
         (electrons.pt > 20)
         & (elid_func(electrons.id, "90") if elid_func else True)

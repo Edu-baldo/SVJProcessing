@@ -3,11 +3,11 @@
 dataset_directory=/work/ext-ebaldo/datasets_hbb/
 dataset_config=dataset_configs.analysis_selection_Hbb_datasets_paths
 
-module=analysis_configs.0_leptons_selection_Hbb_boosted
-selection_name=0_leptons_selection_Hbb_boosted
+# module=analysis_configs.0_leptons_selection_Hbb_boosted
+# selection_name=0_leptons_selection_Hbb_boosted
 
-# module=analysis_configs.1_leptons_selection_Hbb_boosted
-# selection_name=1_leptons_selection_Hbb_boosted
+module=analysis_configs.1_leptons_selection_Hbb_boosted
+selection_name=1_leptons_selection_Hbb_boosted
 
 year=2017
 
