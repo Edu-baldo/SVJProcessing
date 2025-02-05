@@ -16,12 +16,13 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
     # Trigger event selection
     triggers = getattr(trg, f"no_lepton_2017")
     events = skimmer_utils.apply_trigger_cut(events, triggers)
-    skimmer_utils.update_cut_flow(cut_flow, "Trigger", events)
+    skimmer_utils.update_cut_flow(cut_flow, "Trigger", events) # tracks the number of events passing each selection step
 
     # Good jets filters
     events = sequences.apply_good_ak4_jet_filter(events)
     skimmer_utils.update_cut_flow(cut_flow, "GoodJetsAK4", events)
-
+    print("start(lepton0)")
+    
     # Good Fatjet filters
     events = sequences.apply_good_ak8_jet_filter(events)
     skimmer_utils.update_cut_flow(cut_flow, "GoodJetsAK8", events)
@@ -76,7 +77,8 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
 
         met = ak.broadcast_arrays(met, jets)[0]
         delta_phi = abs(jets.delta_phi(met))
-        #require the Deltaphi between MET and any jet to be greater than 0.5
+
+        #Deltaphi between MET and any jet to be greater than 0.5
         filter_deltaphi = ak.any(delta_phi > 0.5, axis=1)
         filter_deltaphi = as_type(filter_deltaphi, bool)
         events = events[filter_deltaphi]
@@ -88,7 +90,7 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
         events = events[events.MET_pt > 250]  # Threshold for boosted category
     skimmer_utils.update_cut_flow(cut_flow, "pT miss selection", events)
 
-    # Requiring at least 2 good FatJets at a specific event
+    # Requiring at least 1 good FatJets at a specific event
     filter = ak.count(events.FatJet_pt[events.FatJet_isGood], axis=1) >= 1
     events = events[filter]
     skimmer_utils.update_cut_flow(cut_flow, "nJetsAK8Gt2", events)

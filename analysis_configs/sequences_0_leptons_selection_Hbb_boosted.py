@@ -218,7 +218,7 @@ def filter_isZnn(events):
 
     filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=4)
     events = events[filtered_events]
-
+    events["isZnn"] = filtered_events
     return events
 
 def calculate_mht_pt(events):

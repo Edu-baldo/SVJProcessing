@@ -9,7 +9,7 @@ N_WORKERS=150
 #EXECUTOR=dask/lpccondor    # HTCondor at LPC
 EXECUTOR=dask/slurm         # slurm at PSI
 #EXECUTOR=futures        # run interactively
-FORCE_RECREATE=0   # 1 to recreate output file if it exists, 0 else
+FORCE_RECREATE=1   # 1 to recreate output file if it exists, 0 else
 FIRST_FILE=0
 LAST_FILE=-1  # Use -1 to skim all input files
 
@@ -18,6 +18,12 @@ dataset_directory=/work/ext-ebaldo/datasets_hbb/
 module=analysis_configs.0_leptons_selection_Hbb_boosted
 selection_name=0_leptons_selection_Hbb_boosted
 
+# module=analysis_configs.1_leptons_selection_Hbb_boosted
+# selection_name=1_leptons_selection_Hbb_boosted
+
+# module=analysis_configs.2_leptons_selection_Hbb_boosted
+# selection_name=2_leptons_selection_Hbb_boosted
+
 
 years=(
     #2016
@@ -25,7 +31,7 @@ years=(
     #2018
 )
 
-output_directory=/pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_test_skims/
+output_directory=root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_test_skims/
 #root://t3dcachedb03.psi.ch/
 
 dataset_names=(
@@ -33,7 +39,7 @@ dataset_names=(
     # Signals
     #
     #ggZH_HToBB_ZToLL
-    #ggZH_HToBB_ZToNuNu
+    ggZH_HToBB_ZToNuNu
     #
     # Backgrounds
     #
@@ -48,7 +54,7 @@ dataset_names=(
     # Zjets
     #
     #Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250
-    Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
+    #Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
     #Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
     #Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400
     #Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
@@ -72,7 +78,7 @@ cross_sections=(
     # Signals
     #
     #0.0062
-    #0.0122
+    0.0122
     #
     # Backgrounds
     #
@@ -81,18 +87,18 @@ cross_sections=(
     #
     #763.7
     #27.55
-    #3.48
-    #0.5415
+    # 3.48
+    # 0.5415
     #
     # Zjets
     #
     #17.15
-    583.4   
-    #0.8318
-    #1.972
-    #29.28
-    #308.2
-    #0.216
+    # 583.4   
+    # 0.8318
+    # 1.972
+    # 29.28
+    # 308.2
+    # 0.216
     #4.96
 )
 
@@ -157,6 +163,14 @@ make_skims() {
                     else
                         weight_variation_flag=""
                     fi
+
+                    echo "Running python skim.py with arguments:"
+                    echo "input_files: ${input_files}"
+                    echo "output_file_tmp: ${output_file_tmp}"
+                    echo "module: ${module}"
+                    echo "dataset_name: ${dataset_name}"
+                    echo "year: ${year}"
+                    
                     python skim.py -i ${input_files} -o ${output_file_tmp} -p ${module} -pd ${dataset_name} -y ${year} -e ${EXECUTOR} -n ${N_WORKERS} -c ${CHUNK_SIZE} --memory ${MEMORY} --cores ${CORES} --walltime ${TIME} --queue ${PARTITION} -pn_tagger ${variation_flag} ${weight_variation_flag} -xsec ${xsec} -nano 
                     xrdcp -f ${output_file_tmp} ${output_file}
                     echo ${output_file} has been saved.
@@ -178,6 +192,7 @@ for ((i=0; i<$n_datasets; i++)); do
     cross_section=${cross_sections[i]}
   for year in ${years[@]}; do
     for variation in ${variations[@]}; do
+      echo "Processing dataset: ${dataset_name} for year: ${year} with variation: ${variation}"
       make_skims ${dataset_directory} ${module} ${selection_name} ${year} ${variation} ${dataset_name} ${output_directory} ${cross_section}
     done
   done

@@ -12,12 +12,12 @@ single_electron_2017 = [
 ]
 
 double_muon_2017 = [
-   "HLT Mu17 TrkIsoVVL Mu8 TrkIsoVVL DZ Mass3p8",
-   "HLT Mu17 TrkIsoVVL Mu8 TrkIsoVVL DZ Mass8"
+   "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+   "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8"
 ]
 
 double_electron_2017 = [
-   "HLT Ele23 Ele12 CaloIdL TrackIdL IsoVL"
+   "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"
 ]
 
 

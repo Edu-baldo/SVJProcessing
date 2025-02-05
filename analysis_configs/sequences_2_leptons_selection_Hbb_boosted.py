@@ -6,6 +6,7 @@ from utils.variables_computation import event_variables as event_vars
 from utils.data.triggers import primary_dataset_triggers
 from utils.tree_maker.triggers import trigger_table
 from analysis_configs import objects_definition_2_lepton_Hbb as obj
+from utils import Decay_Vtype 
 
 from utils.Logger import *
 
@@ -132,7 +133,7 @@ def apply_good_electrons_filter(events):
             "phi": events.Electron_phi,
             "mass": events.Electron_mass,
             "pfRelIso": events.Electron_pfRelIso03_all,
-            "mediumID": events.Electron_cutBased,
+            "id": events.Electron_cutBased,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -151,7 +152,7 @@ def apply_good_muons_filter(events):
             "phi": events.Muon_phi,
             "mass": events.Muon_mass,
             "pfRelIso": events.Muon_pfRelIso03_all,
-            "mediumID": events.Muon_mediumId,
+            "id": events.Muon_mediumId,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -170,7 +171,7 @@ def add_good_electrons_branch(events):
             "phi": events.Electron_phi,
             "mass": events.Electron_mass,
             "pfRelIso": events.Electron_pfRelIso03_all,
-            "mediumID": events.Electron_cutBased,
+            "id": events.Electron_cutBased,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -193,7 +194,7 @@ def add_good_muons_branch(events):
             "phi": events.Muon_phi,
             "mass": events.Muon_mass,
             "pfRelIso": events.Muon_pfRelIso03_all,
-            "mediumID": events.Muon_mediumId,
+            "id": events.Muon_mediumId,
         },
         with_name="PtEtaPhiMLorentzVector",
     )
@@ -213,3 +214,18 @@ def remove_collections(events):
     events = events[[x for x in events.fields if x != "GenJetsAK15"]]
     return events
 
+def filter_isWmumu(events):
+    
+    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=0)
+    events = events[filtered_events]
+    events["isWmumu"] = filtered_events
+
+    return events
+
+def filter_isWee(events):
+     
+    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=1)
+    events = events[filtered_events]
+    events["isWee"] = filtered_events
+
+    return events

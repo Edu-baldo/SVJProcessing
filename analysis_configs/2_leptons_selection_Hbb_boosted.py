@@ -7,14 +7,14 @@ from utils.awkward_array_utilities import as_type
 import analysis_configs.triggers_Hbb as trg
 import utils.variables_computation.event_variables as event_vars
 from analysis_configs.met_filters import met_filters_nanoaod as met_filters
-from analysis_configs import sequences_0_leptons_selection_Hbb_boosted as sequences
+from analysis_configs import sequences_2_leptons_selection_Hbb_boosted as sequences
 
 
 def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwargs):
     """Hbb 0 leptons pre-selection boosted categorie."""
 
     # Trigger event selection
-    triggers = getattr(trg, f"no_lepton_2017")
+    triggers = getattr(trg, f"double_lepton_2017")
     events = skimmer_utils.apply_trigger_cut(events, triggers)
     skimmer_utils.update_cut_flow(cut_flow, "Trigger", events)
 
@@ -41,50 +41,23 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
     events = sequences.add_good_electrons_branch(events)
     events = sequences.add_good_muons_branch(events)
 
-    #veto all leptons
-    if len(events) != 0:
-        veto_electrons = ak.count(events.Electron_pt, axis=1) == 0
-        veto_muons = ak.count(events.Muon_pt, axis=1) == 0
-        events = events[veto_electrons & veto_muons]
-    skimmer_utils.update_cut_flow(cut_flow, "Lepton veto", events)
+    #Double lepton filter
+    # isWmumu
+    if len(events.Muon_pt) == 2:  
+        events = sequences.filter_isWmumu(events)
+        skimmer_utils.update_cut_flow(cut_flow, "isWmumu", events)
 
-    # Requiring at least 1 good FatJets at a specific event
-    filter = ak.count(events.Jet_pt[events.Jet_isGood], axis=1) >= 1
+    # isWee
+    elif len(events.Electron_pt) == 2:  
+        events = sequences.filter_isWemu(events)
+        skimmer_utils.update_cut_flow(cut_flow, "isWee", events)
+
+    # Requiring at least 1 good Jets at a specific event
+    filter = ak.count(events.Jet_pt[events.Jet_isGood], axis=1) > 1
     events = events[filter]
-    skimmer_utils.update_cut_flow(cut_flow, "nJetsAK84Gt2", events)
+    skimmer_utils.update_cut_flow(cut_flow, "nJetsAK4Gt2", events)
     
-    # Apply delta phi cut
-    if len(events) != 0:
-        #filter jets with pT > 30 GeV
-        jet_filter = events.Jet_pt[events.Jet_isGood] > 30
-
-        # If needed because the selection crashes due to the special ak type
-        met = skimmer_utils.make_pt_eta_phi_mass_lorentz_vector(
-            pt=events.MET_pt,
-            phi=events.MET_phi,
-        )
-        jets = skimmer_utils.make_pt_eta_phi_mass_lorentz_vector(
-            pt=events.Jet_pt[jet_filter],
-            eta=events.Jet_eta[jet_filter],
-            phi=events.Jet_phi[jet_filter],
-            mass=events.Jet_mass[jet_filter],
-        )
-
-        met = ak.broadcast_arrays(met, jets)[0]
-        delta_phi = abs(jets.delta_phi(met))
-        #require the Deltaphi between MET and any jet to be greater than 0.5
-        filter_deltaphi = ak.any(delta_phi > 0.5, axis=1)
-        filter_deltaphi = as_type(filter_deltaphi, bool)
-        events = events[filter_deltaphi]
-
-    skimmer_utils.update_cut_flow(cut_flow, "DeltaPhi selection", events)
-
-    # Apply pT miss selection
-    if len(events) != 0:
-        events = events[events.MET_pt > 250]  # Threshold for boosted category
-    skimmer_utils.update_cut_flow(cut_flow, "pT miss selection", events)
-
-    # Requiring at least 2 good FatJets at a specific event
+    # Requiring at least 1 good FatJets at a specific event
     filter = ak.count(events.FatJet_pt[events.FatJet_isGood], axis=1) >= 1
     events = events[filter]
     skimmer_utils.update_cut_flow(cut_flow, "nJetsAK8Gt2", events)

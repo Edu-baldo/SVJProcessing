@@ -306,8 +306,9 @@ def skim(
 def main():
 
     args = __get_arguments()
+    print("start")
     input_file_names = __get_input_files(args.input_files)
-
+    print("start")
     accumulator = skim(input_file_names, args)
 
     # Making output ROOT file
@@ -315,7 +316,7 @@ def main():
     if args.skim_source:
         # use original values from the skim's cutFlow
         cut_flow_tree = skimmer_utils.get_cut_flow_from_skims(args.input_files, cut_flow_tree)
-
+    print("start")
     trees = {
         "CutFlow": cut_flow_tree
     }
