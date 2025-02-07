@@ -9,16 +9,24 @@ from utils.Logger import *
 def __cast_unknown_type_branches(ak_array, field):
 
     type_text = str(ak.type(ak_array))
-
+    log.info(f"Processing field: {field}, type: {type_text}")
+    
     if "unknown" in type_text:
         log.warning(f"Branch {field} has unknown type, converting to float64")
         ak_array = akUtl.as_type(ak_array, np.float64)
         
     elif "?" in type_text:
         new_type_text = type_text.split("*")[-1].replace("?", "").replace(" ", "")
+        #remove adding parameters to the type
+        new_type_text = new_type_text.split("[")[0]
         log.warning(f"Branch {field} has unclear type {type_text}, converting to {new_type_text}")
-        ak_array = akUtl.as_type(ak_array, getattr(np, new_type_text))
-        
+        #ak_array = akUtl.as_type(ak_array, getattr(np, new_type_text))
+        try:
+            ak_array = akUtl.as_type(ak_array, getattr(np, new_type_text))
+        except AttributeError:
+            log.error(f"Failed to convert branch {field} with type {new_type_text}. Defaulting to float64.")
+            ak_array = akUtl.as_type(ak_array, np.float64)
+
     return ak_array
 
 
@@ -202,9 +210,9 @@ def __make_nano_aod_event_tree(ak_array, sort_by_name=True):
     single_branches = {}
 
     # Fill in those dictionaries
-    for field in ak_array.fields:
+    for field in ak_array.fields :
         is_collection_variable = False
-        
+    
         collection_candidate, variable = __get_collection_and_variable_names(field)
         for collection in collections:
             if collection_candidate == collection:

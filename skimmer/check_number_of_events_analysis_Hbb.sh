@@ -12,7 +12,7 @@ selection_name=0_leptons_selection_Hbb_boosted
 year=2017
 
 # Output directory for nominal samples - no variation of the uncertainties
-output_directory=/work/ext-ebaldo/output_selection/
+output_directory=root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_test_skims/
 
 dataset_names=(
     #

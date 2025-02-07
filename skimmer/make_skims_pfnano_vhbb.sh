@@ -4,14 +4,14 @@ MEMORY=10GB
 TIME=12:00:00
 PARTITION=standard
 CORES=2
-CHUNK_SIZE=1000
+CHUNK_SIZE=10000
 N_WORKERS=150
 #EXECUTOR=dask/lpccondor    # HTCondor at LPC
 EXECUTOR=dask/slurm         # slurm at PSI
 #EXECUTOR=futures        # run interactively
 FORCE_RECREATE=1   # 1 to recreate output file if it exists, 0 else
 FIRST_FILE=0
-LAST_FILE=-1  # Use -1 to skim all input files
+LAST_FILE=0  # Use -1 to skim all input files
 
 dataset_directory=/work/ext-ebaldo/datasets_hbb/
 
@@ -31,7 +31,9 @@ years=(
     #2018
 )
 
-output_directory=root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_test_skims/
+output_directory=/work/ext-ebaldo/output_skims_vhbb/
+#/work/ext-ebaldo/output_skims_vhbb/
+#root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_output_skims/
 #root://t3dcachedb03.psi.ch/
 
 dataset_names=(
@@ -125,10 +127,24 @@ make_skims() {
         if [ "$?" != "0" ]; then
             xrdfs ${output_redirector} mkdir -p ${output_dir}
         fi
+        echo "test" | xrdfs ${output_redirector} query write ${output_dir}/test_file.txt
+        if [ "$?" != "0" ]; then
+            echo "Error: No write permission for directory ${output_dir}"
+            exit 1
+        else
+            xrdfs ${output_redirector} rm ${output_dir}/test_file.txt
+        fi
     else
         local output_redirector="none"
         if [ ! -d ${output_directory} ]; then
             mkdir -p ${output_directory}
+        fi
+        touch ${output_directory}/test_file.txt
+        if [ "$?" != "0" ]; then
+            echo "Error: No write permission for directory ${output_directory}"
+            exit 1
+        else
+            rm ${output_directory}/test_file.txt
         fi
     fi
 
@@ -174,7 +190,7 @@ make_skims() {
                     python skim.py -i ${input_files} -o ${output_file_tmp} -p ${module} -pd ${dataset_name} -y ${year} -e ${EXECUTOR} -n ${N_WORKERS} -c ${CHUNK_SIZE} --memory ${MEMORY} --cores ${CORES} --walltime ${TIME} --queue ${PARTITION} -pn_tagger ${variation_flag} ${weight_variation_flag} -xsec ${xsec} -nano 
                     xrdcp -f ${output_file_tmp} ${output_file}
                     echo ${output_file} has been saved.
-                    rm ${output_file_tmp}
+                    rm -r ${output_file_tmp}
                 else
                     echo ${output_file} already exists and FORCE_RECREATE is 0. Skipping.
                 fi

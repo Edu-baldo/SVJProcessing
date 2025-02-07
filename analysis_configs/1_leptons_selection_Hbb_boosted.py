@@ -104,8 +104,8 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
     events = events[filter]
     skimmer_utils.update_cut_flow(cut_flow, "nJetsAK8Gt2", events)
 
-    events = sequences.add_analysis_branches(events)
-    events = sequences.remove_collections(events)
+    # events = sequences.add_analysis_branches(events)
+    # events = sequences.remove_collections(events)
 
     return events, cut_flow
 

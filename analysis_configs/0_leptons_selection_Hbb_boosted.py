@@ -21,7 +21,6 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
     # Good jets filters
     events = sequences.apply_good_ak4_jet_filter(events)
     skimmer_utils.update_cut_flow(cut_flow, "GoodJetsAK4", events)
-    print("start(lepton0)")
     
     # Good Fatjet filters
     events = sequences.apply_good_ak8_jet_filter(events)
@@ -44,18 +43,21 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
 
     # Veto all Leptons
     # isZnn 
-    events = sequences.filter_isZnn(events)
+    if len(events) != 0:
+        events = sequences.filter_isZnn(events)
     skimmer_utils.update_cut_flow(cut_flow, "isZnn", events)
 
     # Requiring at least 1 good Jets at a specific event
-    filter = ak.count(events.Jet_pt[events.Jet_isGood], axis=1) >= 1
-    events = events[filter]
+    if len(events) != 0:
+        filter = ak.count(events.Jet_pt[events.Jet_isGood], axis=1) >= 1
+        events = events[filter]
     skimmer_utils.update_cut_flow(cut_flow, "nJetsAK4Gt2", events)
-
+    
     # Apply filter min(MHT_pt, MET_Pt) > 100
-    events["MHT_pt"] = sequences.calculate_mht_pt(events)
-    filter_MHT = ak.min([events.MHT_pt, events.MET_pt], axis=0) > 100
-    events = events[filter_MHT]
+    if len(events) != 0:
+        events["MHT_pt"] = sequences.calculate_mht_pt(events)
+        filter_MHT = ak.min([events.MHT_pt, events.MET_pt], axis=0) > 100
+        events = events[filter_MHT]
     skimmer_utils.update_cut_flow(cut_flow, "MHT_pt_filter", events)
 
     # Apply delta phi cut
@@ -91,11 +93,12 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
     skimmer_utils.update_cut_flow(cut_flow, "pT miss selection", events)
 
     # Requiring at least 1 good FatJets at a specific event
-    filter = ak.count(events.FatJet_pt[events.FatJet_isGood], axis=1) >= 1
-    events = events[filter]
+    if len(events) != 0:
+        filter = ak.count(events.FatJet_pt[events.FatJet_isGood], axis=1) >= 1
+        events = events[filter]
     skimmer_utils.update_cut_flow(cut_flow, "nJetsAK8Gt2", events)
 
-    events = sequences.add_analysis_branches(events)
+    # events = sequences.add_analysis_branches(events)
     events = sequences.remove_collections(events)
 
     return events, cut_flow

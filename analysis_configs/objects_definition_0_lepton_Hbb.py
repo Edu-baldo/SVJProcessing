@@ -25,14 +25,14 @@ def is_analysis_ak4_jet(jets):
 def is_analysis_electron(electrons):
     return (
         (electrons.pt > 15)
-        & (abs(electrons.eta) < 2.5)
+        & (abs(electrons.eta) < 2.4)
     )
 
 
 def is_analysis_muon(muons):
     return (
         (muons.pt > 15)
-        & (abs(muons.eta) < 2.5)   #id for veto (no leptons) category
+        & (abs(muons.eta) < 2.4)   #id for veto (no leptons) category
     )
 
 

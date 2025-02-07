@@ -5,7 +5,7 @@ from utils.Logger import *
 
 import awkward as ak
 
-def calculate_vtype(events, vtype_filter):
+def apply_vtype_mask(events, vtype_filter):
 
     # Calculate the Vtype branch for the event
 
@@ -65,25 +65,10 @@ def calculate_vtype(events, vtype_filter):
     ]
 
     # Debug prints for the masks
-    print(f"Number of zElectrons: {ak.num(zElectrons)}")
-    print(f"Number of zMuons: {ak.num(zMuons)}")
-    print(f"Number of wElectrons: {ak.num(wElectrons)}")
-    print(f"Number of wMuons: {ak.num(wMuons)}")
-
-    # # Define masks for each type of Vtype
-    # if ak.all(ak.num(zMuons) >= 2):
-    #     Zmm_mask = (ak.num(zMuons) >= 2) & (ak.num(zMuons[:, :2]) == 2) & (zMuons[:, 0].charge * zMuons[:, 1].charge < 0)
-    # else:
-    #     Zmm_mask = False
-
-    # if ak.all(ak.num(zElectrons) >= 2):
-    #     Zee_mask = (ak.num(zElectrons) >= 2) & (ak.num(zElectrons[:, :2]) == 2) & (zElectrons[:, 0].charge * zElectrons[:, 1].charge < 0)
-    # else:
-    #     Zee_mask = False
-
-    # Wmu_mask = ak.all(ak.num(wMuons) == 1)
-    # We_mask = ak.all(ak.num(wElectrons) == 1)
-    # Znn_mask = ak.all((ak.num(zElectrons) == 0) & (ak.num(zMuons) == 0) & (events.MET_pt > 150))
+    # print(f"Number of zElectrons: {ak.num(zElectrons)}")
+    # print(f"Number of zMuons: {ak.num(zMuons)}")
+    # print(f"Number of wElectrons: {ak.num(wElectrons)}")
+    # print(f"Number of wMuons: {ak.num(wMuons)}")
 
     # Create a mask that selects only events with the desired Vtype
     if vtype_filter == 0:
@@ -105,14 +90,14 @@ def calculate_vtype(events, vtype_filter):
     elif vtype_filter == 4:
         Znn_mask = ak.all((ak.num(zElectrons) == 0) & (ak.num(zMuons) == 0) & (events.MET_pt > 150))
         event_mask = Znn_mask
-        print(f"Znn_mask: {Znn_mask}")
+        # print(f"Znn_mask: {Znn_mask}")
     else:
         raise ValueError(f"Vtype {vtype_filter} is not valid.")
 
-    print(f"Event mask: {event_mask}")
-    print(f"Number of events before filtering: {len(events)}")
+    # print(f"Event mask: {event_mask}")
+    # print(f"Number of events before filtering: {len(events)}")
 
     filtered_events = events[event_mask]
-
-    
-    return filtered_events
+    # print(f"Number of events after filtering: {len(filtered_events)}")
+    # print(f"Number of events after filtering: {ak.num(filtered_events)}")
+    return filtered_events, event_mask

@@ -212,13 +212,141 @@ def add_good_muons_branch(events):
 def remove_collections(events):
     events = events[[x for x in events.fields if x != "JetsAK15"]]
     events = events[[x for x in events.fields if x != "GenJetsAK15"]]
+    # events = events[[x for x in events.fields if x != "run"]]
+    # events = events[[x for x in events.fields if x != "luminosityBlock"]]
+    # events = events[[x for x in events.fields if x != "event"]]
+    # events = events[[x for x in events.fields if x != "ptoftheHiggsbosonasidentifiedinHTXS"]]
+    # events = events[[x for x in events.fields if x != "HTXS_Higgs_pt"]]
+    # events = events[[x for x in events.fields if x != "HTXS_Higgs_y"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage1_1_cat_pTjet25GeV"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage1_1_cat_pTjet30GeV"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage1_1_fine_cat_pTjet25GeV"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage1_1_fine_cat_pTjet30GeV"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage_0_cat"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage1_2_cat_pTjet25GeV"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage1_2_cat_pTjet30GeV"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage1_2_fine_cat_pTjet25GeV"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage1_2_fine_cat_pTjet30GeV"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage_0"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage_1_pTjet25"]]
+    # events = events[[x for x in events.fields if x != "HTXS_stage_1_pTjet30"]]
+    # events = events[[x for x in events.fields if x != "HTXS_njets25"]]
+    # events = events[[x for x in events.fields if x != "HTXS_njets30"]]
+    # events = events[[x for x in events.fields if x != "nboostedTau"]]  
+    # events = events[[x for x in events.fields if x != "btagWeight_CSVV2"]]
+    # events = events[[x for x in events.fields if x != "btagWeight_DeepCSVB"]]
+    # events = events[[x for x in events.fields if x != "CaloMET_phi"]]
+    # events = events[[x for x in events.fields if x != "CaloMET_pt"]]
+    # events = events[[x for x in events.fields if x != "CaloMET_sumEt"]]
+    # events = events[[x for x in events.fields if x != "ChsMET_phi"]]
+    # events = events[[x for x in events.fields if x != "ChsMET_pt"]]
+    # events = events[[x for x in events.fields if x != "ChsMET_sumEt"]]
+    # events = events[[x for x in events.fields if x != "nCorrT1METJet"]]
+    # events = events[[x for x in events.fields if x != "nJetPFCands"]]
+    # events = events[[x for x in events.fields if x != "nJetSVs"]]
+    # events = events[[x for x in events.fields if x != "nFatJetPFCands"]]
+    # events = events[[x for x in events.fields if x != "nFatJetSVs"]]
+    # events = events[[x for x in events.fields if x != "nPFCands"]]
+    # events = events[[x for x in events.fields if x != "DeepMETResolutionTune_phi"]]
+    # events = events[[x for x in events.fields if x != "DeepMETResolutionTune_pt"]]
+    # events = events[[x for x in events.fields if x != "DeepMETResponseTune_phi"]]
+    # events = events[[x for x in events.fields if x != "DeepMETResponseTune_pt"]]
+    # events = events[[x for x in events.fields if x != "DeepMETResponseTune_pt"]]
+    # events = events[[x for x in events.fields if x != "nElectron"]]
+    # events = events[[x for x in events.fields if x != "nFatJet"]]
+    # events = events[[x for x in events.fields if x != "nFsrPhoton"]]
+    # events = events[[x for x in events.fields if x != "nGenJetCands"]]
+    # events = events[[x for x in events.fields if x != "nGenJetSVs"]]
+    # events = events[[x for x in events.fields if x != "nGenVisnGenFatJetCandsTau"]]
+    # events = events[[x for x in events.fields if x != "nGenVisTau"]]
+    # events = events[[x for x in events.fields if x != "nGenVisTauCands"]]
+    # events = events[[x for x in events.fields if x != "nGenVisTauCands_nGenVisTauCands"]]
+    # events = events[[x for x in events.fields if x != "nGenFatJetCands"]]
+    # events = events[[x for x in events.fields if x != "nGenFatJetSVs"]]
+    # events = events[[x for x in events.fields if x != "nGenJetAK8"]]
+    # events = events[[x for x in events.fields if x != "nGenJet"]]
+    # events = events[[x for x in events.fields if x != "nGenCands"]]
+    # events = events[[x for x in events.fields if x != "nGenPart"]]
+    # events = events[[x for x in events.fields if x != "nSubGenJetAK8"]]
+    # events = events[[x for x in events.fields if x != "Generator_binvar"]]
+    # events = events[[x for x in events.fields if x != "Generator_scalePDF"]]
+    # events = events[[x for x in events.fields if x != "Generator_weight"]]
+    # events = events[[x for x in events.fields if x != "Generator_x1"]]
+    # events = events[[x for x in events.fields if x != "Generator_x2"]]
+    # events = events[[x for x in events.fields if x != "Generator_xpdf1"]]
+    # events = events[[x for x in events.fields if x != "Generator_xpdf2"]]
+
+
+
     return events
 
-def filter_isZnn(events):
+def filter_isZnn(events): 
 
-    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=4)
-    events = events[filtered_events]
-    events["isZnn"] = filtered_events
+    # filtered_events, event_mask = Decay_Vtype.apply_vtype_mask(events, vtype_filter=4)
+    # events["isZnn"] = filtered_events
+    # events = events[filtered_events]
+    # print("events_mask", event_mask)
+
+    electrons = ak.zip(
+        {
+            "pt": events.Electron_pt,
+            "eta": events.Electron_eta,
+            "phi": events.Electron_phi,
+            "mass": events.Electron_mass,
+            "pfRelIso03_all": events.Electron_pfRelIso03_all,
+            "id": events.Electron_cutBased,
+            "charge": events.Electron_charge,
+        },
+        with_name="PtEtaPhiMLorentzVector",
+    )
+
+    muons = ak.zip(
+        {
+            "pt": events.Muon_pt,
+            "eta": events.Muon_eta,
+            "phi": events.Muon_phi,
+            "mass": events.Muon_mass,
+            "pfRelIso03_all": events.Muon_pfRelIso03_all,
+            "tightId": events.Muon_tightId,
+            "charge": events.Muon_charge,
+            "dxy": events.Muon_dxy,
+            "dz": events.Muon_dz,
+        },
+        with_name="PtEtaPhiMLorentzVector",
+    )
+
+    zElectrons = electrons[
+        (electrons.pt > 20)
+        & (electrons.id == 1) 
+        & (electrons.pfRelIso03_all < 0.15)
+    ]
+    
+    zMuons = muons[
+        (muons.pt > 20)
+        & (muons.pfRelIso03_all < 0.25)
+        & (abs(muons.dxy) < 0.05)
+        & (abs(muons.dz) < 0.2)
+    ]
+
+    wElectrons = electrons[
+        (electrons.pt > 25)
+        & (electrons.id == 2)
+        & (electrons.pfRelIso03_all < 0.12)
+    ]
+
+    wMuons = muons[
+        (muons.pt > 25)
+        & (muons.tightId >= 1)
+        & (muons.pfRelIso03_all < 0.15)
+        & (abs(muons.dxy) < 0.05)
+        & (abs(muons.dz) < 0.2)
+    ]
+
+    Znn_mask = (ak.num(zElectrons) == 0) & (ak.num(zMuons) == 0) & (events.MET_pt > 150)
+    event_mask = Znn_mask
+    events = events[event_mask] 
+    print("events_mask", event_mask)
+
     return events
 
 def calculate_mht_pt(events):
