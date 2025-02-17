@@ -11,15 +11,15 @@ EXECUTOR=dask/slurm         # slurm at PSI
 #EXECUTOR=futures        # run interactively
 FORCE_RECREATE=1   # 1 to recreate output file if it exists, 0 else
 FIRST_FILE=0
-LAST_FILE=0  # Use -1 to skim all input files
+LAST_FILE=-1  # Use -1 to skim all input files
 
 dataset_directory=/work/ext-ebaldo/datasets_hbb/
 
-module=analysis_configs.0_leptons_selection_Hbb_boosted
-selection_name=0_leptons_selection_Hbb_boosted
+# module=analysis_configs.0_leptons_selection_Hbb_boosted
+# selection_name=0_leptons_selection_Hbb_boosted
 
-# module=analysis_configs.1_leptons_selection_Hbb_boosted
-# selection_name=1_leptons_selection_Hbb_boosted
+module=analysis_configs.1_leptons_selection_Hbb_boosted
+selection_name=1_leptons_selection_Hbb_boosted
 
 # module=analysis_configs.2_leptons_selection_Hbb_boosted
 # selection_name=2_leptons_selection_Hbb_boosted
@@ -31,16 +31,17 @@ years=(
     #2018
 )
 
-output_directory=/work/ext-ebaldo/output_skims_vhbb/
+output_directory=root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_output_skims/
 #/work/ext-ebaldo/output_skims_vhbb/
 #root://t3dcachedb03.psi.ch//pnfs/psi.ch/cms/trivcat/store/user/ext-ebaldo/vh_bb_output_skims/
 #root://t3dcachedb03.psi.ch/
+
 
 dataset_names=(
     #
     # Signals
     #
-    #ggZH_HToBB_ZToLL
+    # ggZH_HToBB_ZToLL
     ggZH_HToBB_ZToNuNu
     #
     # Backgrounds
@@ -49,19 +50,19 @@ dataset_names=(
     # Wjets
     #
     #WJetsToLNu_Pt-100To250
-    #WJetsToLNu_Pt-250To400 
-    #WJetsToLNu_Pt-400To600
-    #WJetsToLNu_Pt-600ToInf
+    # WJetsToLNu_Pt-250To400 
+    # WJetsToLNu_Pt-400To600
+    # WJetsToLNu_Pt-600ToInf
     #
     # Zjets
     #
-    #Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250
-    #Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
-    #Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
-    #Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400
-    #Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
-    #Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150
-    #Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
+    # Z1JetsToNuNu_M-50_LHEFilterPtZ-150To250
+    # Z1JetsToNuNu_M-50_LHEFilterPtZ-50To150   
+    # Z2JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
+    # Z1JetsToNuNu_M-50_LHEFilterPtZ-250To400
+    # Z2JetsToNuNu_M-50_LHEFilterPtZ-150To250
+    # Z2JetsToNuNu_M-50_LHEFilterPtZ-50To150
+    # Z1JetsToNuNu_M-50_LHEFilterPtZ-400ToInf
     #Z2JetsToNuNu_M-50_LHEFilterPtZ-250To400
 )
 
@@ -79,8 +80,8 @@ cross_sections=(
     #
     # Signals
     #
-    #0.0062
-    0.0122
+    # 0.0062
+    # 0.0122
     #
     # Backgrounds
     #
@@ -88,14 +89,14 @@ cross_sections=(
     # Wjets
     #
     #763.7
-    #27.55
+    # 27.55
     # 3.48
     # 0.5415
     #
     # Zjets
     #
-    #17.15
-    # 583.4   
+    # 17.15
+    583.4   
     # 0.8318
     # 1.972
     # 29.28
@@ -127,12 +128,16 @@ make_skims() {
         if [ "$?" != "0" ]; then
             xrdfs ${output_redirector} mkdir -p ${output_dir}
         fi
-        echo "test" | xrdfs ${output_redirector} query write ${output_dir}/test_file.txt
+
+        echo "test" > test_file.txt
+        xrdcp test_file.txt ${output_redirector}/${output_dir}/test_file.txt
+
         if [ "$?" != "0" ]; then
             echo "Error: No write permission for directory ${output_dir}"
             exit 1
         else
             xrdfs ${output_redirector} rm ${output_dir}/test_file.txt
+            echo "File successfully written and removed"
         fi
     else
         local output_redirector="none"
@@ -157,7 +162,7 @@ make_skims() {
                 local input_files=${files_list_directory}/${files_list}
                 local output_file=${output_directory}/${files_list/.txt/.root}
                 local output_file_name_tmp=$(echo ${ouput_file}_$(date +"%Y%m%d-%H%M%S") | shasum | cut -d " " -f1).root
-                local output_file_tmp=/scratch/${USER}/tmp/${output_file_name_tmp}
+                local output_file_tmp=/work/${USER}/tmp/${output_file_name_tmp}
 
                 echo ""
                 echo "Making skim file ${output_file}"

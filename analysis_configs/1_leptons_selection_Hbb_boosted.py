@@ -42,15 +42,39 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
     events = sequences.add_good_muons_branch(events)
 
     #Single lepton filter
+    if len(events) != 0:
+        # Filter events with exactly one muon or one electron
+        single_lepton_mask = (ak.num(events.Muon_pt) == 1) | (ak.num(events.Electron_pt) == 1)
+        events = events[single_lepton_mask]
+
+        # # isWmunu
+        # if ak.any(ak.num(events.Muon_pt) == 1): 
+        #     filter = sequences.isWmunu(events)
+        #     events["isWmunu"] = filter
+        #     events = events[filter]
+        #     skimmer_utils.update_cut_flow(cut_flow, "isWmunu_filter", events)
+
+        # # isWenu
+        # if ak.any(ak.num(events.Electron_pt) == 1): 
+        #     filter = sequences.isWenu(events)
+        #     events["isWenu"] = filter
+        #     events = events[filter]
+        #     skimmer_utils.update_cut_flow(cut_flow, "isWenu_filter", events)
+    skimmer_utils.update_cut_flow(cut_flow, "Single_Lepton", events)
+
     # isWmunu
-    if len(events.Muon_pt) == 1:  
-        events = sequences.filter_isWmunu(events)
-        skimmer_utils.update_cut_flow(cut_flow, "isWmunu", events)
+    if ak.any(ak.num(events.Muon_pt) == 1): 
+        filter = sequences.isWmunu(events)
+        events["isWmunu"] = filter
+        events = events[filter]
+    skimmer_utils.update_cut_flow(cut_flow, "isWmunu_filter", events)
 
     # isWenu
-    elif len(events.Electron_pt) == 1:  
-        events = sequences.filter_isWenu(events)
-        skimmer_utils.update_cut_flow(cut_flow, "isWenu", events)
+    if ak.any(ak.num(events.Electron_pt) == 1): 
+        filter = sequences.isWenu(events)
+        events["isWenu"] = filter
+        events = events[filter]
+    skimmer_utils.update_cut_flow(cut_flow, "isWenu_filter", events)
 
     # Requiring at least 1 good Jets at a specific event
     filter = ak.count(events.Jet_pt[events.Jet_isGood], axis=1) >= 1

@@ -3,11 +3,11 @@
 dataset_directory=/work/ext-ebaldo/datasets_hbb/
 dataset_config=dataset_configs.analysis_selection_Hbb_datasets_paths
 
-module=analysis_configs.0_leptons_selection_Hbb_boosted
-selection_name=0_leptons_selection_Hbb_boosted
+# module=analysis_configs.0_leptons_selection_Hbb_boosted
+# selection_name=0_leptons_selection_Hbb_boosted
 
-# module=analysis_configs.1_leptons_selection_Hbb_boosted
-# selection_name=1_leptons_selection_Hbb_boosted
+module=analysis_configs.1_leptons_selection_Hbb_boosted
+selection_name=1_leptons_selection_Hbb_boosted
 
 # module=analysis_configs.2_leptons_selection_Hbb_boosted
 # selection_name=2_leptons_selection_Hbb_boosted
@@ -18,7 +18,7 @@ dataset_names=(
     # 
     # Signals
     #
-    # ggZH_HToBB_ZToLL
+    ggZH_HToBB_ZToLL
     ggZH_HToBB_ZToNuNu
     #
     # Backgrounds
@@ -26,10 +26,10 @@ dataset_names=(
     #
     # Wjets
     #
-    #WJetsToLNu_Pt-100To250
-    #WJetsToLNu_Pt-250To400 
-    #WJetsToLNu_Pt-400To600
-    #WJetsToLNu_Pt-600ToInf
+    # WJetsToLNu_Pt-100To250
+    # WJetsToLNu_Pt-250To400 
+    # WJetsToLNu_Pt-400To600
+    # WJetsToLNu_Pt-600ToInf
     #
     # Zjets
     #

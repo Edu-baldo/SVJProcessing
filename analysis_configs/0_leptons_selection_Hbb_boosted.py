@@ -44,8 +44,10 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
     # Veto all Leptons
     # isZnn 
     if len(events) != 0:
-        events = sequences.filter_isZnn(events)
-    skimmer_utils.update_cut_flow(cut_flow, "isZnn", events)
+        filter = sequences.isZnn(events)
+        events["isZnn"] = filter
+        events = events[filter]
+    skimmer_utils.update_cut_flow(cut_flow, "isZnn_filter", events)
 
     # Requiring at least 1 good Jets at a specific event
     if len(events) != 0:
@@ -57,6 +59,7 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
     if len(events) != 0:
         events["MHT_pt"] = sequences.calculate_mht_pt(events)
         filter_MHT = ak.min([events.MHT_pt, events.MET_pt], axis=0) > 100
+        filter_MHT = as_type(filter_MHT, bool) 
         events = events[filter_MHT]
     skimmer_utils.update_cut_flow(cut_flow, "MHT_pt_filter", events)
 
@@ -98,7 +101,7 @@ def process(events, cut_flow, year, primary_dataset="", pn_tagger=False, **kwarg
         events = events[filter]
     skimmer_utils.update_cut_flow(cut_flow, "nJetsAK8Gt2", events)
 
-    # events = sequences.add_analysis_branches(events)
+    events = sequences.add_analysis_branches(events)
     events = sequences.remove_collections(events)
 
     return events, cut_flow

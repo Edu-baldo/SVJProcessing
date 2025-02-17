@@ -9,8 +9,8 @@ from utils.Logger import *
 def __cast_unknown_type_branches(ak_array, field):
 
     type_text = str(ak.type(ak_array))
-    log.info(f"Processing field: {field}, type: {type_text}")
-    
+    # log.info(f"Processing field: {field}, type: {type_text}")
+
     if "unknown" in type_text:
         log.warning(f"Branch {field} has unknown type, converting to float64")
         ak_array = akUtl.as_type(ak_array, np.float64)
@@ -18,7 +18,7 @@ def __cast_unknown_type_branches(ak_array, field):
     elif "?" in type_text:
         new_type_text = type_text.split("*")[-1].replace("?", "").replace(" ", "")
         #remove adding parameters to the type
-        new_type_text = new_type_text.split("[")[0]
+        # new_type_text = new_type_text.split("[")[0]
         log.warning(f"Branch {field} has unclear type {type_text}, converting to {new_type_text}")
         #ak_array = akUtl.as_type(ak_array, getattr(np, new_type_text))
         try:
@@ -27,11 +27,16 @@ def __cast_unknown_type_branches(ak_array, field):
             log.error(f"Failed to convert branch {field} with type {new_type_text}. Defaulting to float64.")
             ak_array = akUtl.as_type(ak_array, np.float64)
 
+    # Stampa il contenuto del branch dopo la conversione
+    # log.info(f"Content of field {field} after processing: {ak_array}")
+
     return ak_array
 
 
 def __prepare_array(ak_array, field):
-    return ak.packed(ak.without_parameters(__cast_unknown_type_branches(ak_array, field)))
+    processed_array = ak.packed(ak.without_parameters(__cast_unknown_type_branches(ak_array, field)))
+    # log.info(f"Content of field {field} after preparation: {processed_array}")
+    return processed_array
 
 
 def __is_rootcompat(a):

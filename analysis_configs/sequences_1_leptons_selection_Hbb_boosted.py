@@ -6,7 +6,6 @@ from utils.variables_computation import event_variables as event_vars
 from utils.data.triggers import primary_dataset_triggers
 from utils.tree_maker.triggers import trigger_table
 from analysis_configs import objects_definition_1_lepton_Hbb as obj
-from utils import Decay_Vtype 
 
 from utils.Logger import *
 
@@ -214,19 +213,64 @@ def remove_collections(events):
     events = events[[x for x in events.fields if x != "GenJetsAK15"]]
     return events
 
-def filter_isWmunu(events):
+def isWmunu(events):
+
+    muons = ak.zip(
+        {
+            "pt": events.Muon_pt,
+            "eta": events.Muon_eta,
+            "phi": events.Muon_phi,
+            "mass": events.Muon_mass,
+            "pfRelIso03_all": events.Muon_pfRelIso03_all,
+            "tightId": events.Muon_tightId,
+            "charge": events.Muon_charge,
+            "dxy": events.Muon_dxy,
+            "dz": events.Muon_dz,
+        },
+        with_name="PtEtaPhiMLorentzVector",
+    )
+
+    wMuons = muons[
+        (muons.pt > 25)
+        & (muons.tightId >= 1)
+        & (muons.pfRelIso03_all < 0.15)
+        & (abs(muons.dxy) < 0.05)
+        & (abs(muons.dz) < 0.2)
+    ]
+
+    Wmu_mask = ak.num(wMuons) == 1
+    event_mask = Wmu_mask
+
+    return event_mask
+
+
+
+def isWenu(events):
+
+    # Calculate the Vtype branch for the event
+
+    electrons = ak.zip(
+        {
+            "pt": events.Electron_pt,
+            "eta": events.Electron_eta,
+            "phi": events.Electron_phi,
+            "mass": events.Electron_mass,
+            "pfRelIso03_all": events.Electron_pfRelIso03_all,
+            "id": events.Electron_cutBased,
+            "charge": events.Electron_charge,
+        },
+        with_name="PtEtaPhiMLorentzVector",
+    )
+
     
-    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=2)
-    events = events[filtered_events]
-    events["isWmunu"] = filtered_events
+    wElectrons = electrons[
+        (electrons.pt > 25)
+        & (electrons.id == 2)
+        & (electrons.pfRelIso03_all < 0.12)
+    ]
 
-    return events
+    We_mask = ak.num(wElectrons) == 1
+    event_mask = We_mask
 
-def filter_isWenu(events):
-     
-    filtered_events = Decay_Vtype.calculate_vtype(events, vtype_filter=3)
-    events = events[filtered_events]
-    events["isWenu"] = filtered_events
 
-    return events
-
+    return event_mask
